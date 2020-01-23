@@ -1,0 +1,56 @@
+### USER ENDPOINTS
+POST http://localhost:3030/api/v1/users
+Content-Type: application/json
+
+{
+  "userName": "Anna"
+}
+
+###
+GET http://localhost:3030/api/v1/users
+
+###
+GET http://localhost:3030/api/v1/users/5dea8cd1f81968069de0ca29
+
+###
+PUT http://localhost:3030/api/v1/users/5deac1b5c4d2cf0a7b9c0969
+Content-Type: application/json
+
+{
+  "userName": "Dimitry"
+}
+
+###
+DELETE http://localhost:3030/api/v1/users/5dea8cc3f81968069de0ca28
+
+### OFFICE ENDPOINTS
+GET http://localhost:3030/api/v1/offices
+
+###
+POST http://localhost:3030/api/v1/offices
+Content-Type: application/json
+
+{
+  "userId": "5deac82d153a270b10514f6f"
+}
+
+### WORKER ENDPOINTS
+GET http://localhost:3030/api/v1/workers
+
+###
+POST http://localhost:3030/api/v1/workers
+Content-Type: application/json
+
+{
+  "userId": "5deac82d153a270b10514f6f",
+  "officeId": "5deb55204bea240fb41b0044"
+}
+
+###
+PUT http://localhost:3030/api/v1/workers/5defc7df6c9e8305fc58eeaa
+Content-Type: application/json
+
+{
+  "officeId": "5deb55204bea240fb41b0044",
+  "aura": 66
+}

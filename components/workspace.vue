@@ -1,5 +1,5 @@
 <template>
-  <v-card v-if="user" class="ma-5 flex-grow-1">
+  <v-card v-if="user" tile outlined class="ma-0">
     <v-card-title color="red">Структура компании</v-card-title>
     <v-divider></v-divider>
     <div class="d-flex flex-wrap pa-3 scroll-y">

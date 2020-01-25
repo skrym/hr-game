@@ -10,20 +10,38 @@ export const mutations = {
   REMOVE_USER(state) {
     localStorage.removeItem('userId')
     state.user = null
+  },
+  ADD_OFFICE(state, office) {
+    office.workers = []
+    state.user.offices.push(office)
+  },
+  ADD_WORKER(state, {
+    worker,
+  }) {
+    const officeIndex = state.user.offices
+      .findIndex(office => office._id === worker.officeId)
+    state.user.offices[officeIndex].workers.push(worker)
   }
 }
 
 export const actions = {
-  login({ commit }, userName) {
-    let t = this
-    this.$axios.$post('/api/v1/users', { userName })
+  login({
+    commit,
+    dispatch
+  }, userName) {
+    this.$axios.$post('/api/v1/users', {
+        userName
+      })
       .then(user => {
         commit('SET_USER', user.data)
-        t.$router.push('/cabinet')
+        dispatch('fetchUser')
       })
       .catch(err => console.error(err))
   },
-  fetchUser({ commit, dispatch }) {
+  fetchUser({
+    commit,
+    dispatch
+  }) {
     let t = this
     this.$axios.$get(`/api/v1/users/${localStorage.getItem('userId')}`)
       .then(data => {
@@ -32,10 +50,45 @@ export const actions = {
       })
       .catch(() => dispatch('logout'))
   },
-  logout({ commit }) {
+
+  logout({
+    commit
+  }) {
     commit('REMOVE_USER')
     this.$router.push('/')
-    console.log('redirect to / route from logout func')
+  },
+
+  rentOffice({
+    state,
+    commit
+  }) {
+    let userId = state.user._id
+    this.$axios.$post(`/api/v1/offices/`, {
+        userId
+      })
+      .then(office => {
+        commit('ADD_OFFICE', office.data)
+      })
+      .catch(err => console.log('error: ', err))
+  },
+
+  hireWorker({
+    state,
+    commit
+  }, {
+    officeId,
+  }) {
+    let userId = state.user._id
+    this.$axios.$post(`/api/v1/workers/`, {
+        userId,
+        officeId
+      })
+      .then(worker => {
+        commit('ADD_WORKER', {
+          worker: worker.data,
+        })
+      })
+      .catch(err => console.log('error: ', err))
   }
 }
 

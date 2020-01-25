@@ -23,7 +23,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
     select: ['aura', 'rate', 'rent'],
     populate: {
       path: 'workers',
-      select: ['aura', 'experience']
+      select: ['name', 'aura', 'experience']
     }
   })
 

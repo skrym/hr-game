@@ -14,7 +14,7 @@ const WorkerSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Office'
   },
-  workerName: {
+  name: {
     type: String,
     default: () => randomName()
   },
